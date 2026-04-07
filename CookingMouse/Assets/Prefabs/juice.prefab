@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8060394690028053300}
   - component: {fileID: 5247821160896890606}
   - component: {fileID: 2407775924937501928}
+  - component: {fileID: 1515528561481605078}
   m_Layer: 6
   m_Name: juice
   m_TagString: Untagged
@@ -172,3 +173,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1515528561481605078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7702329949828898539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8acea21c255e3a346a5373253976fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
