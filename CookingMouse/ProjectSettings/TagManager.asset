@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Can
   - BurgerArea
+  - FriesArea
   layers:
   - Default
   - TransparentFX
