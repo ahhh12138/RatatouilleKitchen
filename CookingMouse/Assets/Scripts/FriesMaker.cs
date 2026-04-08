@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class FriesMaker : MonoBehaviour
 {
     public static FriesMaker instance;
+    public Button friesButton;
 
     [Header("薯条食材虚影")]
     public Image imgPotato;
@@ -13,10 +14,12 @@ public class FriesMaker : MonoBehaviour
     public GameObject friesPrefab;
 
     private bool hasPotato, hasSauce;
+    public bool isGetFries=false;
 
     void Awake()
     {
         instance = this;
+        friesButton.interactable = false;
     }
 
     public void AddIngredient(GameObject food)
@@ -41,8 +44,14 @@ public class FriesMaker : MonoBehaviour
     {
         if (hasPotato && hasSauce)
         {
-            MakeFries();
+            friesButton.interactable = true;
         }
+    }
+
+    public void OnFriesButtonClicked()
+    {
+        Debug.Log("合成薯条");
+        if(!isGetFries)MakeFries();     
     }
 
     void MakeFries()
@@ -53,6 +62,7 @@ public class FriesMaker : MonoBehaviour
         {
             GameObject newFries = Instantiate(friesPrefab, transform);
             newFries.transform.localPosition = Vector3.zero;
+            isGetFries = true;
         }
 
         ResetMaker();
@@ -65,5 +75,8 @@ public class FriesMaker : MonoBehaviour
 
         imgPotato.color = Color.gray;
         imgSauce.color = Color.gray;
+
+        isGetFries = false;
+        friesButton.interactable= false;
     }
 }

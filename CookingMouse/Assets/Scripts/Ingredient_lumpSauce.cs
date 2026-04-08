@@ -3,15 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public enum IngredientType
-{
-    Hamburger,
-    Fries,
-    Drink,
-    Sauce
-}
 
-public class Ingredient : MonoBehaviour
+public class Ingredient_lumpSauce : MonoBehaviour
 {
     private Rigidbody2D rb;
     private bool isDragging;
@@ -29,13 +22,16 @@ public class Ingredient : MonoBehaviour
     public Vector2 LockPos;
 
     public GameObject lumpSaucePrefab;
-    public Vector3 burgerSaucePos=new Vector3(0,0,2);
+    public Vector3 burgerSaucePos = new Vector3(0, 0, 2);
     public Vector3 friesSaucePos = new Vector3(0, 0, -2);
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         isDragging = false;
+        isInCan = false;
+        isInHamArea = false;
+        isInFriesArea = false;
         originPos = transform.position;
     }
 
@@ -57,27 +53,6 @@ public class Ingredient : MonoBehaviour
             transform.position = LockPos;
             originPos = LockPos;
             BurgerMaker.instance.AddIngredient(gameObject);
-        }
-        else if (isInFriesArea && ingredientType == IngredientType.Fries)
-        {
-            transform.position = LockPos;
-            originPos = LockPos;
-            FriesMaker.instance.AddIngredient(gameObject);
-        }
-        else if (ingredientType == IngredientType.Sauce)
-        {
-            Transform parent = GameObject.Find("Ingredient").transform;
-            if (isInHamArea)
-            {
-                Instantiate(lumpSaucePrefab, burgerSaucePos,Quaternion.identity,parent.transform);
-                BurgerMaker.instance.AddIngredient(gameObject);
-            }
-            else if (isInFriesArea)
-            {
-                Instantiate(lumpSaucePrefab, friesSaucePos, Quaternion.identity, parent.transform);
-                FriesMaker.instance.AddIngredient(gameObject);
-            }
-            transform.position = originPos;
         }
         else
         {
@@ -102,7 +77,7 @@ public class Ingredient : MonoBehaviour
             rb.MovePosition(GetMouseWorldPos() + mouseOffset);
         }
 
-        if(!(ingredientType == IngredientType.Sauce))
+        if (!(ingredientType == IngredientType.Sauce))
         {
             if (BurgerMaker.instance.isGetBurger && isInHamArea)
             {
