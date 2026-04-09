@@ -1,10 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class IngredientManager : MonoBehaviour
 {
-    [Header("食材生成位置")]
-    public Transform spawnPoint;
+    [Header("食材生成位置（自动找场景里现有食材）")]
+    public List<Transform> breadSpawnPoints = new List<Transform>();
+    public List<Transform> potatoSpawnPoints = new List<Transform>();
+    public List<Transform> meatSpawnPoints = new List<Transform>();
+    public List<Transform> vegetableSpawnPoints = new List<Transform>();
+    public List<Transform> juiceSpawnPoints = new List<Transform>();
 
     [Header("好食材预制体")]
     public GameObject bread;
@@ -28,63 +33,84 @@ public class IngredientManager : MonoBehaviour
     public Button btnDrink;
 
     private float gameTime = 0;
+    private const int MaxCount = 3;
 
     void Start()
     {
-        // 开局检查按钮状态
+        // 只记录位置，不生成新食材
+        RecordExistIngredientPositions();
+
         InvokeRepeating("CheckAllButtons", 0, 1f);
     }
 
     void Update()
     {
-        // 记录游戏时间（控制坏食材概率）
         gameTime += Time.deltaTime;
     }
 
-    // 检查所有食材是否用完，控制按钮
+    // 记录场景里已经存在的食材位置
+    void RecordExistIngredientPositions()
+    {
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("bread"))
+            breadSpawnPoints.Add(obj.transform);
+
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("potato"))
+            potatoSpawnPoints.Add(obj.transform);
+
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("meat"))
+            meatSpawnPoints.Add(obj.transform);
+
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("vegetables"))
+            vegetableSpawnPoints.Add(obj.transform);
+
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("juice"))
+            juiceSpawnPoints.Add(obj.transform);
+    }
+
     void CheckAllButtons()
     {
-        btnBread.interactable = CheckIsEmpty("bread");
-        btnPotato.interactable = CheckIsEmpty("potato");
-        btnMeat.interactable = CheckIsEmpty("meat");
-        btnVegetables.interactable = CheckIsEmpty("vegetables");
-        btnDrink.interactable = CheckIsEmpty("juice");
+        btnBread.interactable = CountIngredients("bread") == 0;
+        btnPotato.interactable = CountIngredients("potato") == 0;
+        btnMeat.interactable = CountIngredients("meat") == 0;
+        btnVegetables.interactable = CountIngredients("vegetables") == 0;
+        btnDrink.interactable = CountIngredients("juice") == 0;
     }
 
-    // 判断某类食材是否为空
-    bool CheckIsEmpty(string tag)
+    int CountIngredients(string tag)
     {
-        return GameObject.FindGameObjectWithTag(tag) == null;
+        return GameObject.FindGameObjectsWithTag(tag).Length;
     }
 
-    // 获取当前阶段的坏食材概率
     int GetBadRate()
     {
-        if (gameTime < 60) return Random.Range(5, 11);    // 0-1分钟
-        if (gameTime < 180) return Random.Range(15, 26);  // 1-3分钟
-        return Random.Range(30, 41);                      // 3-5分钟
+        if (gameTime < 60) return Random.Range(5, 11);
+        if (gameTime < 180) return Random.Range(15, 26);
+        return Random.Range(30, 41);
     }
 
-    // 生成食材（好/坏）
-    void SpawnIngredient(GameObject good, GameObject bad)
+    void SpawnSingleIngredient(GameObject good, GameObject bad, Transform spawnPoint)
     {
         int rate = Random.Range(0, 100);
         int badRate = GetBadRate();
 
         if (rate < badRate)
-        {
             Instantiate(bad, spawnPoint.position, Quaternion.identity);
-        }
         else
-        {
             Instantiate(good, spawnPoint.position, Quaternion.identity);
+    }
+
+    void SpawnBatchIngredients(GameObject good, GameObject bad, List<Transform> spawnPoints)
+    {
+        foreach (Transform t in spawnPoints)
+        {
+            SpawnSingleIngredient(good, bad, t);
         }
     }
 
-    // 按钮点击方法
-    public void OnClickBread() => SpawnIngredient(bread, badBread);
-    public void OnClickPotato() => SpawnIngredient(potato, badPotato);
-    public void OnClickMeat() => SpawnIngredient(meat, badMeat);
-    public void OnClickVegetables() => SpawnIngredient(vegetables, badVegetables);
-    public void OnClickDrink() => SpawnIngredient(drink, badDrink);
+    // 按钮点击
+    public void OnClickBread() => SpawnBatchIngredients(bread, badBread, breadSpawnPoints);
+    public void OnClickPotato() => SpawnBatchIngredients(potato, badPotato, potatoSpawnPoints);
+    public void OnClickMeat() => SpawnBatchIngredients(meat, badMeat, meatSpawnPoints);
+    public void OnClickVegetables() => SpawnBatchIngredients(vegetables, badVegetables, vegetableSpawnPoints);
+    public void OnClickDrink() => SpawnBatchIngredients(drink, badDrink, juiceSpawnPoints);
 }
