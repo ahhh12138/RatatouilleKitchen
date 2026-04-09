@@ -48,11 +48,17 @@ public class Ingredient_lumpSauce : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else if (isInHamArea && ingredientType == IngredientType.Hamburger)
+        else if (isInHamArea)
         {
             transform.position = LockPos;
             originPos = LockPos;
             BurgerMaker.instance.AddIngredient(gameObject);
+        }
+        else if (isInFriesArea)
+        {
+            transform.position = LockPos;
+            originPos = LockPos;
+            FriesMaker.instance.AddIngredient(gameObject);
         }
         else
         {
@@ -103,14 +109,12 @@ public class Ingredient_lumpSauce : MonoBehaviour
         {
             isInCan = true;
         }
-        else if (other.CompareTag("BurgerArea") && (ingredientType == IngredientType.Hamburger
-            || ingredientType == IngredientType.Sauce))
+        else if (other.CompareTag("BurgerArea"))
         {
             isInHamArea = true;
             isInFriesArea = false;
         }
-        else if (other.CompareTag("FriesArea") && (ingredientType == IngredientType.Fries
-            || ingredientType == IngredientType.Sauce))
+        else if (other.CompareTag("FriesArea"))
         {
             isInFriesArea = true;
             isInHamArea = false;

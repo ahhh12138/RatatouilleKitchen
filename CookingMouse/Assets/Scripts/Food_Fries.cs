@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class Food_Hamburger: MonoBehaviour
+public class Food_Fries : MonoBehaviour
 {
     private Rigidbody2D rb;
     private bool isDragging;
@@ -34,7 +34,6 @@ public class Food_Hamburger: MonoBehaviour
         if (isInCan)
         {
             Destroy(gameObject);
-            BurgerMaker.instance.isGetBurger = false; 
         }
         else
         {
@@ -79,10 +78,6 @@ public class Food_Hamburger: MonoBehaviour
         if (other.CompareTag("Can"))
         {
             isInCan = false;
-        }
-        else if (other.CompareTag("BurgerArea"))
-        {
-            BurgerMaker.instance.isGetBurger = false;
         }
     }
 }

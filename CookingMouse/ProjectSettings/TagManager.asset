@@ -7,6 +7,12 @@ TagManager:
   - Can
   - BurgerArea
   - FriesArea
+  - meat
+  - vegetables
+  - potato
+  - sauce
+  - bread
+  - Burger
   layers:
   - Default
   - TransparentFX

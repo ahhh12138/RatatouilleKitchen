@@ -30,24 +30,23 @@ public class BurgerMaker : MonoBehaviour
 
     public void AddIngredient(GameObject food)
     {
-        string foodName = food.name;
-
-        if (foodName == "bread" && !hasBread)
+        if (isGetBurger) return;
+        if (food.CompareTag("bread") && !hasBread)
         {
             hasBread = true;
             //imgBread.color = Color.white;
         }
-        else if (foodName == "meat" && !hasMeat)
+        else if (food.CompareTag("meat") && !hasMeat)
         {
             hasMeat = true;
             //imgMeat.color = Color.white;
         }
-        else if (foodName == "vegetables" && !hasVegetables)
+        else if (food.CompareTag("vegetables") && !hasVegetables)
         {
             hasVegetables = true;
             //imgVegetables.color = Color.white;
         }
-        else if (foodName == "sauce" && !hasSauce)
+        else if (food.CompareTag("sauce") && !hasSauce)
         {
             hasSauce = true;
             //imgSauce.color = Color.white;
@@ -77,7 +76,7 @@ public class BurgerMaker : MonoBehaviour
     {
         Debug.Log("汉堡合成成功！");
         if (burgerPrefab != null)
-        {
+        { 
             GameObject newBurger = Instantiate(burgerPrefab, transform);
             newBurger.transform.localPosition = Vector3.zero+Vector3.left*120+Vector3.up*50;
             newBurger.transform.localScale = new Vector2(618, 309);

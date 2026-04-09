@@ -24,17 +24,15 @@ public class FriesMaker : MonoBehaviour
 
     public void AddIngredient(GameObject food)
     {
-        string foodName = food.name;
-
-        if (foodName == "potato" && !hasPotato)
+        if (food.CompareTag("potato") && !hasPotato)
         {
             hasPotato = true;
-            imgPotato.color = Color.white;
+            //imgPotato.color = Color.white;
         }
-        else if (foodName == "sauce" && !hasSauce)
+        else if (food.CompareTag("sauce") && !hasSauce)
         {
             hasSauce = true;
-            imgSauce.color = Color.white;
+            //imgSauce.color = Color.white;
         }
 
         CheckIsFull();
@@ -62,10 +60,10 @@ public class FriesMaker : MonoBehaviour
         {
             GameObject newFries = Instantiate(friesPrefab, transform);
             newFries.transform.localPosition = Vector3.zero;
+            newFries.transform.localScale = new Vector2(30, 40);
             isGetFries = true;
         }
-
-        ResetMaker();
+        Invoke(nameof(ResetMaker), 0.1f);
     }
 
     void ResetMaker()
@@ -73,8 +71,8 @@ public class FriesMaker : MonoBehaviour
         hasPotato = false;
         hasSauce = false;
 
-        imgPotato.color = Color.gray;
-        imgSauce.color = Color.gray;
+        //imgPotato.color = Color.gray;
+        //imgSauce.color = Color.gray;
 
         isGetFries = false;
         friesButton.interactable= false;

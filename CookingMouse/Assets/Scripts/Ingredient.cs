@@ -102,7 +102,7 @@ public class Ingredient : MonoBehaviour
             rb.MovePosition(GetMouseWorldPos() + mouseOffset);
         }
 
-        if(!(ingredientType == IngredientType.Sauce))
+        if(!(ingredientType == IngredientType.Sauce)&&!isDragging)
         {
             if (BurgerMaker.instance.isGetBurger && isInHamArea)
             {
@@ -121,7 +121,6 @@ public class Ingredient : MonoBehaviour
         mousePoint.z = mouseZCoord;
         return Camera.main.ScreenToWorldPoint(mousePoint);
     }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Can"))
