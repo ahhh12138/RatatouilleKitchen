@@ -15,6 +15,10 @@ TagManager:
   - Burger
   - Hamburger
   - juice
+  - FinishedBurger
+  - FinishedFries
+  - FinishedDrink
+  - TaskSlot
   layers:
   - Default
   - TransparentFX

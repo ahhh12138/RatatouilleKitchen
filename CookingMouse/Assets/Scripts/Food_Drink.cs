@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
-public class Food_Hamburger : MonoBehaviour
+public class Food_Drink : MonoBehaviour
 {
     private Rigidbody2D rb;
     private bool isDragging;
@@ -12,7 +11,7 @@ public class Food_Hamburger : MonoBehaviour
     private float mouseZCoord;
 
     public bool isInCan = false;
-    public bool isInTask = false; // 新加：拖到任务图标
+    public bool isInTaskSlot = false; // 任务区域
 
     public Vector2 originPos;
 
@@ -29,30 +28,38 @@ public class Food_Hamburger : MonoBehaviour
         mouseZCoord = Camera.main.WorldToScreenPoint(transform.position).z;
         mouseOffset = transform.position - GetMouseWorldPos();
     }
+
     private void OnMouseUp()
     {
         isDragging = false;
+
+        // 扔进垃圾桶
         if (isInCan)
         {
             Destroy(gameObject);
-            BurgerMaker.instance.isGetBurger = false;
         }
-        // 新加：提交任务逻辑
-        else if (isInTask)
+        // 拖到任务栏提交
+        else if (isInTaskSlot)
         {
-            TaskIconRandom task = FindObjectOfType<TaskIconRandom>();
-            if (task != null)
-            {
-                task.OnDropFood("Burger");
-                Destroy(gameObject);
-                BurgerMaker.instance.isGetBurger = false;
-            }
+            SubmitTask();
         }
+        // 放回原位
         else
         {
             transform.position = originPos;
         }
     }
+
+    void SubmitTask()
+    {
+        TaskIconRandom task = FindObjectOfType<TaskIconRandom>();
+        if (task != null)
+        {
+            task.OnDropFood("Drink");
+            Destroy(gameObject);
+        }
+    }
+
     private void OnMouseEnter()
     {
         transform.localScale += Vector3.one * 0.07f;
@@ -85,27 +92,21 @@ public class Food_Hamburger : MonoBehaviour
         {
             isInCan = true;
         }
-        // 新加：进入任务区域
-        if (other.CompareTag("TaskSlot"))
+        else if (other.CompareTag("TaskSlot"))
         {
-            isInTask = true;
+            isInTaskSlot = true;
         }
     }
+
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Can"))
         {
             isInCan = false;
         }
-        // 新加：离开任务区域
-        if (other.CompareTag("TaskSlot"))
+        else if (other.CompareTag("TaskSlot"))
         {
-            isInTask = false;
-        }
-
-        if (other.CompareTag("BurgerArea"))
-        {
-            BurgerMaker.instance.isGetBurger = false;
+            isInTaskSlot = false;
         }
     }
 }
