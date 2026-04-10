@@ -123,7 +123,7 @@ public class Ingredient : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Can"))
+        if (other.CompareTag("Can") && !(ingredientType == IngredientType.Sauce))
         {
             isInCan = true;
         }
@@ -138,6 +138,10 @@ public class Ingredient : MonoBehaviour
         {
             isInFriesArea = true;
             isInHamArea = false;
+        }
+        else
+        {
+            transform.position = originPos;
         }
     }
     private void OnTriggerExit2D(Collider2D other)
