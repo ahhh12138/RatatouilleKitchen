@@ -19,6 +19,7 @@ TagManager:
   - FinishedFries
   - FinishedDrink
   - TaskSlot
+  - badjuice
   layers:
   - Default
   - TransparentFX

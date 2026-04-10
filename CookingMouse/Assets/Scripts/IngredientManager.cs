@@ -48,6 +48,12 @@ public class IngredientManager : MonoBehaviour
 
     void RecordExistIngredientPositions()
     {
+        breadSpawnPoints.Clear();
+        potatoSpawnPoints.Clear();
+        meatSpawnPoints.Clear();
+        vegetableSpawnPoints.Clear();
+        juiceSpawnPoints.Clear();
+
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("bread"))
             breadSpawnPoints.Add(obj.transform.position);
 

@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6411237722632368256}
   - component: {fileID: 6971713944308516938}
-  - component: {fileID: 3309997967444524349}
   - component: {fileID: 8987280678412426857}
   - component: {fileID: 6626112083296244163}
+  - component: {fileID: 6963724028976774126}
   m_Layer: 6
   m_Name: badjuice
-  m_TagString: juice
+  m_TagString: badjuice
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,27 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3309997967444524349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6729847783345231776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd31d18e306ea5241b3d09684947e29f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ingredientType: 0
-  isInCan: 0
-  isInHamArea: 0
-  isInFriesArea: 0
-  originPos: {x: 0, y: 0}
-  LockPos: {x: 0, y: 0}
-  lumpSaucePrefab: {fileID: 0}
-  burgerSaucePos: {x: 0, y: 0, z: 2}
-  friesSaucePos: {x: 0, y: 0, z: -2}
 --- !u!50 &8987280678412426857
 Rigidbody2D:
   serializedVersion: 4
@@ -180,3 +159,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6963724028976774126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6729847783345231776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d68eb6f04a1ebb4e9865dacb1406896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInCan: 0
+  currentTask: {fileID: 0}
+  originPos: {x: 0, y: 0}
