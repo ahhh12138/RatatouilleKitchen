@@ -12,7 +12,7 @@ public class Food_Fries : MonoBehaviour
     private float mouseZCoord;
 
     public bool isInCan = false;
-    public bool isInTask = false; // 新加：是否拖到任务区
+    public TaskIconRandom currentTask;
 
     public Vector2 originPos;
 
@@ -38,20 +38,24 @@ public class Food_Fries : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        // 新加：如果拖到任务图标 且 匹配成功
-        else if (isInTask)
+        else if (currentTask != null)
         {
-            TaskIconRandom task = FindObjectOfType<TaskIconRandom>();
-            if (task != null)
+            bool success = currentTask.CheckAndSubmit("Fries");
+            if (success)
             {
-                task.OnDropFood("Fries"); // 提交薯条
-                Destroy(gameObject); // 提交后吃掉食物
+                Destroy(gameObject);
+            }
+            else
+            {
+                transform.position = originPos;
             }
         }
         else
         {
             transform.position = originPos;
         }
+
+        currentTask = null;
     }
 
     private void OnMouseEnter()
@@ -87,10 +91,9 @@ public class Food_Fries : MonoBehaviour
             isInCan = true;
         }
 
-        // 新加：碰到任务图标
         if (other.CompareTag("TaskSlot"))
         {
-            isInTask = true;
+            currentTask = other.GetComponent<TaskIconRandom>();
         }
     }
 
@@ -101,10 +104,9 @@ public class Food_Fries : MonoBehaviour
             isInCan = false;
         }
 
-        // 新加：离开任务图标
-        if (other.CompareTag("TaskSlot"))
+        if (other.CompareTag("TaskSlot") && currentTask == other.GetComponent<TaskIconRandom>())
         {
-            isInTask = false;
+            currentTask = null;
         }
     }
 }

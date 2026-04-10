@@ -10,15 +10,19 @@ public class TaskIconRandom : MonoBehaviour
     private Image currentIcon;
     private string currentTaskName;
 
-    void Start()
+    void Awake()
     {
         currentIcon = GetComponent<Image>();
+
         if (currentIcon == null)
             currentIcon = gameObject.AddComponent<Image>();
 
         RectTransform rt = currentIcon.rectTransform;
         rt.sizeDelta = new Vector2(100, 100);
+    }
 
+    void Start()
+    {
         RandomTask();
     }
 
@@ -44,22 +48,22 @@ public class TaskIconRandom : MonoBehaviour
                 break;
         }
 
-        // 🔥 关键调试：看控制台！这里会告诉你现在要什么！
-        Debug.Log("【当前任务需要】：" + currentTaskName);
+        Debug.Log("【当前任务" + gameObject.name + "需要】：" + currentTaskName);
     }
 
-    public void OnDropFood(string foodName)
+    // 只刷新自己这个任务
+    public bool CheckAndSubmit(string foodName)
     {
-        Debug.Log("【你提交了】：" + foodName);
-
         if (foodName == currentTaskName)
         {
-            Debug.Log("✅ 提交成功！");
+            Debug.Log("✅ " + gameObject.name + " 提交成功！");
             RandomTask();
+            return true;
         }
         else
         {
-            Debug.Log("❌ 提交失败：食物不匹配");
+            Debug.Log("❌ " + gameObject.name + " 不匹配");
+            return false;
         }
     }
 }

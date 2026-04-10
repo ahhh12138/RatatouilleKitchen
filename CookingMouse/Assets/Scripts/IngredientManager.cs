@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class IngredientManager : MonoBehaviour
 {
-    [Header("食材生成位置（自动找场景里现有食材）")]
+    [Header("食材生成位置（请手动拖空物体进去）")]
     public List<Transform> breadSpawnPoints = new List<Transform>();
     public List<Transform> potatoSpawnPoints = new List<Transform>();
     public List<Transform> meatSpawnPoints = new List<Transform>();
@@ -25,7 +25,7 @@ public class IngredientManager : MonoBehaviour
     public GameObject badVegetables;
     public GameObject badDrink;
 
-    [Header("对应按钮")]
+    [Header("对应按钮 —— 全部拖进来！")]
     public Button btnBread;
     public Button btnPotato;
     public Button btnMeat;
@@ -33,14 +33,31 @@ public class IngredientManager : MonoBehaviour
     public Button btnDrink;
 
     private float gameTime = 0;
-    private const int MaxCount = 3;
 
     void Start()
     {
-        // 只记录位置，不生成新食材
-        RecordExistIngredientPositions();
+        // ======================
+        // 自动绑定所有按钮！
+        // 不管 Unity 抽什么风，全部强制生效
+        // ======================
+        if (btnBread != null)
+            btnBread.onClick.AddListener(OnClickBread);
 
-        InvokeRepeating("CheckAllButtons", 0, 1f);
+        if (btnPotato != null)
+            btnPotato.onClick.AddListener(OnClickPotato);
+
+        if (btnMeat != null)
+            btnMeat.onClick.AddListener(OnClickMeat);
+
+        if (btnVegetables != null)
+            btnVegetables.onClick.AddListener(OnClickVegetables);
+
+        if (btnDrink != null)
+            btnDrink.onClick.AddListener(OnClickDrink);
+
+        // 启动按钮检测
+        InvokeRepeating("CheckAllButtons", 0f, 1f);
+        Debug.Log("=== 食材管理器启动 ===");
     }
 
     void Update()
@@ -48,32 +65,21 @@ public class IngredientManager : MonoBehaviour
         gameTime += Time.deltaTime;
     }
 
-    // 记录场景里已经存在的食材位置
-    void RecordExistIngredientPositions()
-    {
-        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("bread"))
-            breadSpawnPoints.Add(obj.transform);
-
-        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("potato"))
-            potatoSpawnPoints.Add(obj.transform);
-
-        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("meat"))
-            meatSpawnPoints.Add(obj.transform);
-
-        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("vegetables"))
-            vegetableSpawnPoints.Add(obj.transform);
-
-        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("juice"))
-            juiceSpawnPoints.Add(obj.transform);
-    }
-
     void CheckAllButtons()
     {
-        btnBread.interactable = CountIngredients("bread") == 0;
-        btnPotato.interactable = CountIngredients("potato") == 0;
-        btnMeat.interactable = CountIngredients("meat") == 0;
-        btnVegetables.interactable = CountIngredients("vegetables") == 0;
-        btnDrink.interactable = CountIngredients("juice") == 0;
+        int breadCount = CountIngredients("bread");
+        int potatoCount = CountIngredients("potato");
+        int meatCount = CountIngredients("meat");
+        int vegCount = CountIngredients("vegetables");
+        int juiceCount = CountIngredients("juice");
+
+        btnBread.interactable = (breadCount == 0);
+        btnPotato.interactable = (potatoCount == 0);
+        btnMeat.interactable = (meatCount == 0);
+        btnVegetables.interactable = (vegCount == 0);
+        btnDrink.interactable = (juiceCount == 0);
+
+        Debug.Log($"[数量检测] bread:{breadCount} potato:{potatoCount} meat:{meatCount} veg:{vegCount} juice:{juiceCount}");
     }
 
     int CountIngredients(string tag)
@@ -90,27 +96,56 @@ public class IngredientManager : MonoBehaviour
 
     void SpawnSingleIngredient(GameObject good, GameObject bad, Transform spawnPoint)
     {
+        if (spawnPoint == null)
+        {
+            Debug.LogWarning("生成点为空");
+            return;
+        }
+
         int rate = Random.Range(0, 100);
         int badRate = GetBadRate();
 
-        if (rate < badRate)
-            Instantiate(bad, spawnPoint.position, Quaternion.identity);
-        else
-            Instantiate(good, spawnPoint.position, Quaternion.identity);
+        GameObject spawned = (rate < badRate) ? Instantiate(bad, spawnPoint.position, Quaternion.identity) 
+                                             : Instantiate(good, spawnPoint.position, Quaternion.identity);
+
+        if (spawned != null)
+            Debug.Log("生成成功：" + spawned.name);
     }
 
     void SpawnBatchIngredients(GameObject good, GameObject bad, List<Transform> spawnPoints)
     {
         foreach (Transform t in spawnPoints)
-        {
             SpawnSingleIngredient(good, bad, t);
-        }
     }
 
-    // 按钮点击
-    public void OnClickBread() => SpawnBatchIngredients(bread, badBread, breadSpawnPoints);
-    public void OnClickPotato() => SpawnBatchIngredients(potato, badPotato, potatoSpawnPoints);
-    public void OnClickMeat() => SpawnBatchIngredients(meat, badMeat, meatSpawnPoints);
-    public void OnClickVegetables() => SpawnBatchIngredients(vegetables, badVegetables, vegetableSpawnPoints);
-    public void OnClickDrink() => SpawnBatchIngredients(drink, badDrink, juiceSpawnPoints);
+    // 按钮点击方法
+    public void OnClickBread()
+    {
+        Debug.Log("==== 【面包按钮】被点击 ====");
+        SpawnBatchIngredients(bread, badBread, breadSpawnPoints);
+    }
+
+    public void OnClickPotato()
+    {
+        Debug.Log("==== 【薯条按钮】被点击 ====");
+        SpawnBatchIngredients(potato, badPotato, potatoSpawnPoints);
+    }
+
+    public void OnClickMeat()
+    {
+        Debug.Log("==== 【肉按钮】被点击 ====");
+        SpawnBatchIngredients(meat, badMeat, meatSpawnPoints);
+    }
+
+    public void OnClickVegetables()
+    {
+        Debug.Log("==== 【蔬菜按钮】被点击 ====");
+        SpawnBatchIngredients(vegetables, badVegetables, vegetableSpawnPoints);
+    }
+
+    public void OnClickDrink()
+    {
+        Debug.Log("==== 【饮料按钮】被点击 ====");
+        SpawnBatchIngredients(drink, badDrink, juiceSpawnPoints);
+    }
 }

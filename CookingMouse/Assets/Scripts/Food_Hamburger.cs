@@ -12,7 +12,7 @@ public class Food_Hamburger : MonoBehaviour
     private float mouseZCoord;
 
     public bool isInCan = false;
-    public bool isInTask = false; // 新加：拖到任务图标
+    public TaskIconRandom currentTask;
 
     public Vector2 originPos;
 
@@ -29,30 +29,35 @@ public class Food_Hamburger : MonoBehaviour
         mouseZCoord = Camera.main.WorldToScreenPoint(transform.position).z;
         mouseOffset = transform.position - GetMouseWorldPos();
     }
+
     private void OnMouseUp()
     {
         isDragging = false;
+
         if (isInCan)
         {
             Destroy(gameObject);
-            BurgerMaker.instance.isGetBurger = false;
         }
-        // 新加：提交任务逻辑
-        else if (isInTask)
+        else if (currentTask != null)
         {
-            TaskIconRandom task = FindObjectOfType<TaskIconRandom>();
-            if (task != null)
+            bool success = currentTask.CheckAndSubmit("Burger");
+            if (success)
             {
-                task.OnDropFood("Burger");
                 Destroy(gameObject);
-                BurgerMaker.instance.isGetBurger = false;
+            }
+            else
+            {
+                transform.position = originPos;
             }
         }
         else
         {
             transform.position = originPos;
         }
+
+        currentTask = null;
     }
+
     private void OnMouseEnter()
     {
         transform.localScale += Vector3.one * 0.07f;
@@ -85,27 +90,23 @@ public class Food_Hamburger : MonoBehaviour
         {
             isInCan = true;
         }
-        // 新加：进入任务区域
+
         if (other.CompareTag("TaskSlot"))
         {
-            isInTask = true;
+            currentTask = other.GetComponent<TaskIconRandom>();
         }
     }
+
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Can"))
         {
             isInCan = false;
         }
-        // 新加：离开任务区域
-        if (other.CompareTag("TaskSlot"))
-        {
-            isInTask = false;
-        }
 
-        if (other.CompareTag("BurgerArea"))
+        if (other.CompareTag("TaskSlot") && currentTask == other.GetComponent<TaskIconRandom>())
         {
-            BurgerMaker.instance.isGetBurger = false;
+            currentTask = null;
         }
     }
 }

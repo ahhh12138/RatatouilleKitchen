@@ -12,7 +12,7 @@ public class Food_Drink : MonoBehaviour
     private float mouseZCoord;
 
     public bool isInCan = false;
-    public bool isInTaskSlot = false;
+    public TaskIconRandom currentTask;
 
     public Vector2 originPos;
 
@@ -38,24 +38,24 @@ public class Food_Drink : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else if (isInTaskSlot)
+        else if (currentTask != null)
         {
-            SubmitToTask();
+            bool success = currentTask.CheckAndSubmit("juice");
+            if (success)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                transform.position = originPos;
+            }
         }
         else
         {
             transform.position = originPos;
         }
-    }
 
-    void SubmitToTask()
-    {
-        TaskIconRandom task = FindObjectOfType<TaskIconRandom>();
-        if (task != null)
-        {
-            task.OnDropFood("juice");
-            Destroy(gameObject);
-        }
+        currentTask = null;
     }
 
     private void OnMouseEnter()
@@ -93,7 +93,7 @@ public class Food_Drink : MonoBehaviour
 
         if (other.CompareTag("TaskSlot"))
         {
-            isInTaskSlot = true;
+            currentTask = other.GetComponent<TaskIconRandom>();
         }
     }
 
@@ -104,9 +104,9 @@ public class Food_Drink : MonoBehaviour
             isInCan = false;
         }
 
-        if (other.CompareTag("TaskSlot"))
+        if (other.CompareTag("TaskSlot") && currentTask == other.GetComponent<TaskIconRandom>())
         {
-            isInTaskSlot = false;
+            currentTask = null;
         }
     }
 }

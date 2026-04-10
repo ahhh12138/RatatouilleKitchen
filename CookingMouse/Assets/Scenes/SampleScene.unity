@@ -905,7 +905,7 @@ GameObject:
   - component: {fileID: 372232314}
   - component: {fileID: 372232316}
   - component: {fileID: 372232317}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TaskPos_1
   m_TagString: TaskSlot
   m_Icon: {fileID: 0}
@@ -997,7 +997,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 90, y: 90}
+  m_Size: {x: 100, y: 100}
   m_EdgeRadius: 0
 --- !u!1 &373363760
 GameObject:
@@ -1185,7 +1185,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1684204707}
+      - m_Target: {fileID: 704159247}
         m_TargetAssemblyTypeName: IngredientManager, Assembly-CSharp
         m_MethodName: OnClickBread
         m_Mode: 1
@@ -1217,8 +1217,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1717,7 +1717,7 @@ GameObject:
   - component: {fileID: 640914485}
   - component: {fileID: 640914484}
   - component: {fileID: 640914483}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TaskPos_1 (2)
   m_TagString: TaskSlot
   m_Icon: {fileID: 0}
@@ -1786,7 +1786,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 90, y: 90}
+  m_Size: {x: 100, y: 100}
   m_EdgeRadius: 0
 --- !u!222 &640914484
 CanvasRenderer:
@@ -1977,6 +1977,70 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 296240813}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &704159246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 704159248}
+  - component: {fileID: 704159247}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &704159247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704159246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca2e86b5ba9a484ba5070dcc36f9dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breadSpawnPoints: []
+  potatoSpawnPoints: []
+  meatSpawnPoints: []
+  vegetableSpawnPoints: []
+  juiceSpawnPoints: []
+  bread: {fileID: 5943425867040886355, guid: f1db46b440390d447a4651c8f32ba13d, type: 3}
+  potato: {fileID: 1672602583509672314, guid: 11ef021f4fdf8724bbc49c6d24de355a, type: 3}
+  meat: {fileID: 2586278683199685318, guid: 031d0cf0f6026954fb24611d07a02304, type: 3}
+  vegetables: {fileID: 8706013114953979102, guid: 13caf435cb6e2734d9cf67a1b04164b9, type: 3}
+  drink: {fileID: 7702329949828898539, guid: 675c76cf2aa901a4cb90d46e6c663eac, type: 3}
+  badBread: {fileID: 6844474977178668933, guid: 7e6dfb52eb551d149b0de6679d91becf, type: 3}
+  badPotato: {fileID: 7409843831734423096, guid: dc67d5ebd84d456418f6ff7dd3290ef7, type: 3}
+  badMeat: {fileID: 6129205419878574825, guid: 94e8bbc87517db84184ac7f4d8c500fb, type: 3}
+  badVegetables: {fileID: 7296105871474351976, guid: 54e3b8d91037b3543b7cba52f91c3ceb, type: 3}
+  badDrink: {fileID: 6729847783345231776, guid: 88dcfa2b17d0518468385bb947a61943, type: 3}
+  btnBread: {fileID: 404667204}
+  btnPotato: {fileID: 1534698524}
+  btnMeat: {fileID: 1637002096}
+  btnVegetables: {fileID: 1990579406}
+  btnDrink: {fileID: 1340691611}
+--- !u!4 &704159248
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704159246}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9710482, y: -3.0518107, z: 0.03973891}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &723070895
 GameObject:
@@ -2302,7 +2366,7 @@ GameObject:
   - component: {fileID: 873214171}
   - component: {fileID: 873214170}
   - component: {fileID: 873214169}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TaskPos_1 (1)
   m_TagString: TaskSlot
   m_Icon: {fileID: 0}
@@ -2371,7 +2435,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 90, y: 90}
+  m_Size: {x: 100, y: 100}
   m_EdgeRadius: 0
 --- !u!222 &873214170
 CanvasRenderer:
@@ -2639,7 +2703,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af136d4c694e104ba3c9df9350d637a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInTask: 0
 --- !u!114 &1070007295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2653,7 +2716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInCan: 0
-  isInTaskSlot: 0
+  currentTask: {fileID: 0}
   originPos: {x: 0, y: 0}
 --- !u!1 &1099880527
 GameObject:
@@ -5928,6 +5991,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 1099880528}
     m_Modifications:
     - target: {fileID: 2407775924937501928, guid: 675c76cf2aa901a4cb90d46e6c663eac, type: 3}
+      propertyPath: m_Size.x
+      value: 0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 2407775924937501928, guid: 675c76cf2aa901a4cb90d46e6c663eac, type: 3}
+      propertyPath: m_Size.y
+      value: 2.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 2407775924937501928, guid: 675c76cf2aa901a4cb90d46e6c663eac, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
@@ -5986,6 +6057,10 @@ PrefabInstance:
     - target: {fileID: 7702329949828898539, guid: 675c76cf2aa901a4cb90d46e6c663eac, type: 3}
       propertyPath: m_Name
       value: juice
+      objectReference: {fileID: 0}
+    - target: {fileID: 7702329949828898539, guid: 675c76cf2aa901a4cb90d46e6c663eac, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7702329949828898539, guid: 675c76cf2aa901a4cb90d46e6c663eac, type: 3}
       propertyPath: m_TagString
@@ -6248,3 +6323,4 @@ SceneRoots:
   - {fileID: 1906125549}
   - {fileID: 1684204706}
   - {fileID: 1558988931}
+  - {fileID: 704159248}
