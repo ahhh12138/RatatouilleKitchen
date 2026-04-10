@@ -2007,11 +2007,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ca2e86b5ba9a484ba5070dcc36f9dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  breadSpawnPoints: []
-  potatoSpawnPoints: []
-  meatSpawnPoints: []
-  vegetableSpawnPoints: []
-  juiceSpawnPoints: []
+  breadSpawnPoints:
+  - {fileID: 395570096}
+  - {fileID: 838646116}
+  - {fileID: 685541822}
+  potatoSpawnPoints:
+  - {fileID: 602795539}
+  - {fileID: 1572471429}
+  - {fileID: 805079544}
+  meatSpawnPoints:
+  - {fileID: 1532978558}
+  - {fileID: 1125864538}
+  - {fileID: 411916224}
+  vegetableSpawnPoints:
+  - {fileID: 393344419}
+  - {fileID: 1528827307}
+  - {fileID: 1451465693}
+  juiceSpawnPoints:
+  - {fileID: 582593741}
   bread: {fileID: 5943425867040886355, guid: f1db46b440390d447a4651c8f32ba13d, type: 3}
   potato: {fileID: 1672602583509672314, guid: 11ef021f4fdf8724bbc49c6d24de355a, type: 3}
   meat: {fileID: 2586278683199685318, guid: 031d0cf0f6026954fb24611d07a02304, type: 3}
@@ -3603,7 +3616,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1684204707}
+      - m_Target: {fileID: 704159247}
         m_TargetAssemblyTypeName: IngredientManager, Assembly-CSharp
         m_MethodName: OnClickDrink
         m_Mode: 1
@@ -4190,7 +4203,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1684204707}
+      - m_Target: {fileID: 704159247}
         m_TargetAssemblyTypeName: IngredientManager, Assembly-CSharp
         m_MethodName: OnClickPotato
         m_Mode: 1
@@ -4521,7 +4534,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1684204707}
+      - m_Target: {fileID: 704159247}
         m_TargetAssemblyTypeName: IngredientManager, Assembly-CSharp
         m_MethodName: OnClickMeat
         m_Mode: 1
@@ -5548,7 +5561,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1684204707}
+      - m_Target: {fileID: 704159247}
         m_TargetAssemblyTypeName: IngredientManager, Assembly-CSharp
         m_MethodName: OnClickVegetables
         m_Mode: 1
