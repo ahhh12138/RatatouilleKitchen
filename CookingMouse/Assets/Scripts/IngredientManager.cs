@@ -37,9 +37,7 @@ public class IngredientManager : MonoBehaviour
 
     void Start()
     {
-        // 只记录位置，不生成新食材
         RecordExistIngredientPositions();
-
         InvokeRepeating("CheckAllButtons", 0, 1f);
     }
 
@@ -48,7 +46,6 @@ public class IngredientManager : MonoBehaviour
         gameTime += Time.deltaTime;
     }
 
-    // 记录场景里已经存在的食材位置
     void RecordExistIngredientPositions()
     {
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("bread"))
@@ -108,9 +105,33 @@ public class IngredientManager : MonoBehaviour
     }
 
     // 按钮点击
-    public void OnClickBread() => SpawnBatchIngredients(bread, badBread, breadSpawnPoints);
-    public void OnClickPotato() => SpawnBatchIngredients(potato, badPotato, potatoSpawnPoints);
-    public void OnClickMeat() => SpawnBatchIngredients(meat, badMeat, meatSpawnPoints);
-    public void OnClickVegetables() => SpawnBatchIngredients(vegetables, badVegetables, vegetableSpawnPoints);
-    public void OnClickDrink() => SpawnBatchIngredients(drink, badDrink, juiceSpawnPoints);
+    public void OnClickBread()
+    {
+        Debug.Log("Click: Bread");
+        SpawnBatchIngredients(bread, badBread, breadSpawnPoints);
+    }
+
+    public void OnClickPotato()
+    {
+        Debug.Log("Click: Potato");
+        SpawnBatchIngredients(potato, badPotato, potatoSpawnPoints);
+    }
+
+    public void OnClickMeat()
+    {
+        Debug.Log("Click: Meat");
+        SpawnBatchIngredients(meat, badMeat, meatSpawnPoints);
+    }
+
+    public void OnClickVegetables()
+    {
+        Debug.Log("Click: Vegetables");
+        SpawnBatchIngredients(vegetables, badVegetables, vegetableSpawnPoints);
+    }
+
+    public void OnClickDrink()
+    {
+        Debug.Log("Click: Drink");
+        SpawnBatchIngredients(drink, badDrink, juiceSpawnPoints);
+    }
 }
