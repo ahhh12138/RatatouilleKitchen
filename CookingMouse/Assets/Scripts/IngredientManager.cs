@@ -5,11 +5,11 @@ using System.Collections.Generic;
 public class IngredientManager : MonoBehaviour
 {
     [Header("食材生成位置（自动找场景里现有食材）")]
-    public List<Transform> breadSpawnPoints = new List<Transform>();
-    public List<Transform> potatoSpawnPoints = new List<Transform>();
-    public List<Transform> meatSpawnPoints = new List<Transform>();
-    public List<Transform> vegetableSpawnPoints = new List<Transform>();
-    public List<Transform> juiceSpawnPoints = new List<Transform>();
+    public List<Vector3> breadSpawnPoints = new List<Vector3>();
+    public List<Vector3> potatoSpawnPoints = new List<Vector3>();
+    public List<Vector3> meatSpawnPoints = new List<Vector3>();
+    public List<Vector3> vegetableSpawnPoints = new List<Vector3>();
+    public List<Vector3> juiceSpawnPoints = new List<Vector3>();
 
     [Header("好食材预制体")]
     public GameObject bread;
@@ -49,19 +49,19 @@ public class IngredientManager : MonoBehaviour
     void RecordExistIngredientPositions()
     {
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("bread"))
-            breadSpawnPoints.Add(obj.transform);
+            breadSpawnPoints.Add(obj.transform.position);
 
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("potato"))
-            potatoSpawnPoints.Add(obj.transform);
+            potatoSpawnPoints.Add(obj.transform.position);
 
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("meat"))
-            meatSpawnPoints.Add(obj.transform);
+            meatSpawnPoints.Add(obj.transform.position);
 
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("vegetables"))
-            vegetableSpawnPoints.Add(obj.transform);
+            vegetableSpawnPoints.Add(obj.transform.position);
 
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("juice"))
-            juiceSpawnPoints.Add(obj.transform);
+            juiceSpawnPoints.Add(obj.transform.position);
     }
 
     void CheckAllButtons()
@@ -85,20 +85,20 @@ public class IngredientManager : MonoBehaviour
         return Random.Range(30, 41);
     }
 
-    void SpawnSingleIngredient(GameObject good, GameObject bad, Transform spawnPoint)
+    void SpawnSingleIngredient(GameObject good, GameObject bad, Vector3 spawnPos)
     {
         int rate = Random.Range(0, 100);
         int badRate = GetBadRate();
 
         if (rate < badRate)
-            Instantiate(bad, spawnPoint.position, Quaternion.identity);
+            Instantiate(bad, spawnPos, Quaternion.identity);
         else
-            Instantiate(good, spawnPoint.position, Quaternion.identity);
+            Instantiate(good, spawnPos, Quaternion.identity);
     }
 
-    void SpawnBatchIngredients(GameObject good, GameObject bad, List<Transform> spawnPoints)
+    void SpawnBatchIngredients(GameObject good, GameObject bad, List<Vector3>spawnPoints)
     {
-        foreach (Transform t in spawnPoints)
+        foreach (Vector3 t in spawnPoints)
         {
             SpawnSingleIngredient(good, bad, t);
         }
@@ -108,30 +108,44 @@ public class IngredientManager : MonoBehaviour
     public void OnClickBread()
     {
         Debug.Log("Click: Bread");
+        CleanSpawnPoints(breadSpawnPoints);
         SpawnBatchIngredients(bread, badBread, breadSpawnPoints);
     }
 
     public void OnClickPotato()
     {
         Debug.Log("Click: Potato");
+        CleanSpawnPoints(potatoSpawnPoints);
         SpawnBatchIngredients(potato, badPotato, potatoSpawnPoints);
     }
 
     public void OnClickMeat()
     {
         Debug.Log("Click: Meat");
+        CleanSpawnPoints(meatSpawnPoints);
         SpawnBatchIngredients(meat, badMeat, meatSpawnPoints);
     }
 
     public void OnClickVegetables()
     {
         Debug.Log("Click: Vegetables");
+        CleanSpawnPoints(vegetableSpawnPoints);
         SpawnBatchIngredients(vegetables, badVegetables, vegetableSpawnPoints);
     }
 
     public void OnClickDrink()
     {
         Debug.Log("Click: Drink");
+        CleanSpawnPoints(juiceSpawnPoints);
         SpawnBatchIngredients(drink, badDrink, juiceSpawnPoints);
+    }
+
+    private void CleanSpawnPoints(List<Vector3> spawnPoints)
+    {
+        for (int i = spawnPoints.Count - 1; i >= 0; i--)
+        {
+            if (spawnPoints[i] == null)
+                spawnPoints.RemoveAt(i);
+        }
     }
 }
