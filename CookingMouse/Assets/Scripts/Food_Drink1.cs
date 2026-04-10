@@ -1,6 +1,7 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Food_Drink : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class Food_Drink : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        isDragging = false;
         originPos = transform.position;
     }
 
@@ -38,24 +40,22 @@ public class Food_Drink : MonoBehaviour
         }
         else if (currentTask != null)
         {
-            Debug.Log("✅ 测试：juice 已经正确进入任务区域，可以提交！");
             bool success = currentTask.CheckAndSubmit("juice");
             if (success)
             {
-                Debug.Log("✅ 测试：juice 提交成功！");
                 Destroy(gameObject);
             }
             else
             {
-                Debug.Log("❌ 测试：juice 进入了任务区域，但提交失败（任务不匹配）");
                 transform.position = originPos;
             }
         }
         else
         {
-            Debug.Log("❌ 测试：juice 没有进入任何任务区域 currentTask = null");
             transform.position = originPos;
         }
+
+        currentTask = null;
     }
 
     private void OnMouseEnter()
@@ -72,6 +72,7 @@ public class Food_Drink : MonoBehaviour
     {
         if (isDragging)
         {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             rb.MovePosition(GetMouseWorldPos() + mouseOffset);
         }
     }
@@ -93,10 +94,6 @@ public class Food_Drink : MonoBehaviour
         if (other.CompareTag("TaskSlot"))
         {
             currentTask = other.GetComponent<TaskIconRandom>();
-            Debug.Log("=====================================");
-            Debug.Log("🟢 测试：JUICE 进入任务区域！！！");
-            Debug.Log("🟢 触发对象：" + other.name);
-            Debug.Log("=====================================");
         }
     }
 
@@ -107,12 +104,10 @@ public class Food_Drink : MonoBehaviour
             isInCan = false;
         }
 
-        if (other.CompareTag("TaskSlot"))
+        if (other.CompareTag("TaskSlot") && currentTask == other.GetComponent<TaskIconRandom>())
         {
             currentTask = null;
-            Debug.Log("=====================================");
-            Debug.Log("🔴 测试：JUICE 离开任务区域");
-            Debug.Log("=====================================");
         }
     }
 }
+*/
