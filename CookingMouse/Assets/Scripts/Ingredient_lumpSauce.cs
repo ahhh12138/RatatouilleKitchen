@@ -113,11 +113,13 @@ public class Ingredient_lumpSauce : MonoBehaviour
         {
             isInHamArea = true;
             isInFriesArea = false;
+            LockPos = new Vector3(2.78f, -2.91f, 2f);
         }
         else if (other.CompareTag("FriesArea"))
         {
             isInFriesArea = true;
             isInHamArea = false;
+            LockPos = new Vector3(7.84f, -1.31f, 2f);
         }
     }
     private void OnTriggerExit2D(Collider2D other)

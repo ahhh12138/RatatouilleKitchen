@@ -104,7 +104,7 @@ MonoBehaviour:
   isInHamArea: 0
   isInFriesArea: 0
   originPos: {x: 0, y: 0}
-  LockPos: {x: 6.38, y: -1.35}
+  LockPos: {x: 6.4, y: -1.32}
   lumpSaucePrefab: {fileID: 0}
   burgerSaucePos: {x: 0, y: 0, z: 2}
   friesSaucePos: {x: 0, y: 0, z: -2}
@@ -171,7 +171,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.3033333, y: 0.988}
+    oldSize: {x: 1.6291667, y: 1.235}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

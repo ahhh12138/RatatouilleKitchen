@@ -106,7 +106,7 @@ MonoBehaviour:
   originPos: {x: 0, y: 0}
   LockPos: {x: 0, y: 0}
   lumpSaucePrefab: {fileID: 0}
-  burgerSaucePos: {x: 0, y: 0, z: 2}
+  burgerSaucePos: {x: 2.78, y: -2.91, z: 2}
   friesSaucePos: {x: 0, y: 0, z: -2}
 --- !u!50 &2574360862688935350
 Rigidbody2D:
