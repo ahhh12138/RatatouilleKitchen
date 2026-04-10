@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using UnityEngine.UI;
 
 public class TaskIconRandom : MonoBehaviour
@@ -13,8 +13,7 @@ public class TaskIconRandom : MonoBehaviour
     void Start()
     {
         currentIcon = GetComponent<Image>();
-        if (currentIcon == null)
-            currentIcon = gameObject.AddComponent<Image>();
+        if (currentIcon == null) currentIcon = gameObject.AddComponent<Image>();
 
         RectTransform rt = currentIcon.rectTransform;
         rt.sizeDelta = new Vector2(100, 100);
@@ -40,26 +39,27 @@ public class TaskIconRandom : MonoBehaviour
                 break;
             case 2:
                 currentIcon.sprite = drinkIcon;
-                currentTaskName = "juice";
+                currentTaskName = "juice"; // 绝对正确
                 break;
         }
 
-        // 🔥 关键调试：看控制台！这里会告诉你现在要什么！
-        Debug.Log("【当前任务需要】：" + currentTaskName);
+        // 🔥 关键：看控制台！这里会打印当前任务是什么！
+        Debug.Log("当前任务是：" + currentTaskName);
     }
 
     public void OnDropFood(string foodName)
     {
-        Debug.Log("【你提交了】：" + foodName);
+        Debug.Log("你提交的是：" + foodName);
 
         if (foodName == currentTaskName)
         {
-            Debug.Log("✅ 提交成功！");
+            Debug.Log("提交成功！");
             RandomTask();
         }
         else
         {
-            Debug.Log("❌ 提交失败：食物不匹配");
+            Debug.Log("提交失败：食物不匹配");
         }
     }
 }
+*/

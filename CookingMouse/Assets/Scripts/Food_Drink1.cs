@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Rendering;
+/*using UnityEngine;
 
 public class Food_Drink : MonoBehaviour
 {
@@ -40,7 +37,7 @@ public class Food_Drink : MonoBehaviour
         }
         else if (isInTaskSlot)
         {
-            SubmitToTask();
+            SubmitTask();
         }
         else
         {
@@ -48,12 +45,12 @@ public class Food_Drink : MonoBehaviour
         }
     }
 
-    void SubmitToTask()
+    void SubmitTask()
     {
         TaskIconRandom task = FindObjectOfType<TaskIconRandom>();
         if (task != null)
         {
-            task.OnDropFood("juice");
+            task.OnDropFood("juice"); // 100% 正确
             Destroy(gameObject);
         }
     }
@@ -86,27 +83,14 @@ public class Food_Drink : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Can"))
-        {
-            isInCan = true;
-        }
-
-        if (other.CompareTag("TaskSlot"))
-        {
-            isInTaskSlot = true;
-        }
+        if (other.CompareTag("Can")) isInCan = true;
+        if (other.CompareTag("TaskSlot")) isInTaskSlot = true;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Can"))
-        {
-            isInCan = false;
-        }
-
-        if (other.CompareTag("TaskSlot"))
-        {
-            isInTaskSlot = false;
-        }
+        if (other.CompareTag("Can")) isInCan = false;
+        if (other.CompareTag("TaskSlot")) isInTaskSlot = false;
     }
 }
+*/
