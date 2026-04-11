@@ -10,6 +10,12 @@ public class TaskIconRandom : MonoBehaviour
     private Image currentIcon;
     private string currentTaskName;
 
+    //倒计时
+    public float taskTime=10f;
+    private float currentTime;
+    private bool isCounting=false;
+    public Text TimeText;
+
     void Awake()
     {
         currentIcon = GetComponent<Image>();
@@ -49,6 +55,7 @@ public class TaskIconRandom : MonoBehaviour
         }
 
         Debug.Log("【当前任务" + gameObject.name + "需要】：" + currentTaskName);
+        RestartCountdown();
     }
 
     // 只刷新自己这个任务
@@ -65,5 +72,34 @@ public class TaskIconRandom : MonoBehaviour
             Debug.Log("❌ " + gameObject.name + " 不匹配");
             return false;
         }
+    }
+
+    public void Update()
+    {
+        if (!isCounting) return;
+        currentTime-= Time.deltaTime;
+        if (TimeText != null)
+        {
+            TimeText.text = Mathf.Ceil(currentTime).ToString();
+        }
+        if (currentTime <= 0)
+        {
+            OnTimeOut();
+        }
+    }
+    void RestartCountdown()
+    {
+        currentTime = taskTime;
+        isCounting = true;
+
+        if (TimeText != null)
+            TimeText.text = Mathf.Ceil(taskTime).ToString();
+    }
+    void OnTimeOut()
+    {
+        isCounting = false;
+        Debug.Log("任务超时：" + currentTaskName);
+        GameTimeManager.instance.SubstractGlobalTime();
+        RandomTask();
     }
 }
