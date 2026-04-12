@@ -54,6 +54,7 @@ public class BurgerMaker : MonoBehaviour
         }
 
         CheckIsFull();
+        AudioManager.instance.PlayLockSuccess();
     }
 
     void CheckIsFull()

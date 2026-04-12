@@ -36,6 +36,7 @@ public class FriesMaker : MonoBehaviour
         }
 
         CheckIsFull();
+        AudioManager.instance.PlayLockSuccess();
     }
 
     void CheckIsFull()

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-
 public class Ingredient_lumpSauce : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -40,12 +39,17 @@ public class Ingredient_lumpSauce : MonoBehaviour
         isDragging = true;
         mouseZCoord = Camera.main.WorldToScreenPoint(transform.position).z;
         mouseOffset = transform.position - GetMouseWorldPos();
+
+        // 酱料拿起音效
+        AudioManager.instance.PlayPickUp("sauce");
     }
     private void OnMouseUp()
     {
         isDragging = false;
         if (isInCan)
         {
+            // 丢垃圾桶音效
+            AudioManager.instance.PlayThrowTrash();
             Destroy(gameObject);
         }
         else if (isInHamArea)
@@ -63,6 +67,8 @@ public class Ingredient_lumpSauce : MonoBehaviour
         else
         {
             transform.position = originPos;
+            // 放回原位音效
+            AudioManager.instance.PlayPutBack();
         }
     }
     private void OnMouseEnter()
@@ -114,12 +120,18 @@ public class Ingredient_lumpSauce : MonoBehaviour
             isInHamArea = true;
             isInFriesArea = false;
             LockPos = new Vector3(2.78f, -2.91f, 2f);
+
+            // 酱料进入汉堡区 → 播放酱料专属音效
+            AudioManager.instance.PlayEnterSauce();
         }
         else if (other.CompareTag("FriesArea"))
         {
             isInFriesArea = true;
             isInHamArea = false;
             LockPos = new Vector3(7.84f, -1.31f, 2f);
+
+            // 酱料进入薯条区 → 播放酱料专属音效
+            AudioManager.instance.PlayEnterSauce();
         }
     }
     private void OnTriggerExit2D(Collider2D other)

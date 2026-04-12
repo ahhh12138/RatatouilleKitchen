@@ -44,12 +44,17 @@ public class Ingredient : MonoBehaviour
         isDragging = true;
         mouseZCoord = Camera.main.WorldToScreenPoint(transform.position).z;
         mouseOffset = transform.position - GetMouseWorldPos();
+        
+        // 拿起音效（6种不同）
+        AudioManager.instance.PlayPickUp(gameObject.tag);
     }
     private void OnMouseUp()
     {
         isDragging = false;
         if (isInCan)
         {
+            // 丢垃圾桶音效（通用）
+            AudioManager.instance.PlayThrowTrash();
             Destroy(gameObject);
         }
         else if (isInHamArea && ingredientType == IngredientType.Hamburger)
@@ -78,10 +83,16 @@ public class Ingredient : MonoBehaviour
                 FriesMaker.instance.AddIngredient(gameObject);
             }
             transform.position = originPos;
+            
+            // 放回原位音效（通用）
+            AudioManager.instance.PlayPutBack();
         }
         else
         {
             transform.position = originPos;
+            
+            // 放回原位音效（通用）
+            AudioManager.instance.PlayPutBack();
         }
     }
     private void OnMouseEnter()
@@ -132,16 +143,29 @@ public class Ingredient : MonoBehaviour
         {
             isInHamArea = true;
             isInFriesArea = false;
+
+            // 进入制作区分音效
+            if (ingredientType == IngredientType.Sauce)
+                AudioManager.instance.PlayEnterSauce();
+            else
+                AudioManager.instance.PlayEnterNormal();
         }
         else if (other.CompareTag("FriesArea") && (ingredientType == IngredientType.Fries
             || ingredientType == IngredientType.Sauce))
         {
             isInFriesArea = true;
             isInHamArea = false;
+
+            // 进入制作区分音效
+            if (ingredientType == IngredientType.Sauce)
+                AudioManager.instance.PlayEnterSauce();
+            else
+                AudioManager.instance.PlayEnterNormal();
         }
         else
         {
             transform.position = originPos;
+            AudioManager.instance.PlayPutBack();
         }
     }
     private void OnTriggerExit2D(Collider2D other)

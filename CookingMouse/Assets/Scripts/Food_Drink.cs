@@ -26,6 +26,9 @@ public class Food_Drink : MonoBehaviour
         isDragging = true;
         mouseZCoord = Camera.main.WorldToScreenPoint(transform.position).z;
         mouseOffset = transform.position - GetMouseWorldPos();
+
+        // 饮料拿起音效
+        AudioManager.instance.PlayPickUp("juice");
     }
 
     private void OnMouseUp()
@@ -34,6 +37,8 @@ public class Food_Drink : MonoBehaviour
 
         if (isInCan)
         {
+            // 丢垃圾桶音效
+            AudioManager.instance.PlayThrowTrash();
             Destroy(gameObject);
         }
         else if (currentTask != null)
@@ -49,12 +54,16 @@ public class Food_Drink : MonoBehaviour
             {
                 Debug.Log("❌ 测试：juice 进入了任务区域，但提交失败（任务不匹配）");
                 transform.position = originPos;
+                // 放回原位音效
+                AudioManager.instance.PlayPutBack();
             }
         }
         else
         {
             Debug.Log("❌ 测试：juice 没有进入任何任务区域 currentTask = null");
             transform.position = originPos;
+            // 放回原位音效
+            AudioManager.instance.PlayPutBack();
         }
     }
 
