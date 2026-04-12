@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class Food_Hamburger : MonoBehaviour
 {
@@ -19,7 +18,6 @@ public class Food_Hamburger : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        isDragging = false;
         originPos = transform.position;
     }
 
@@ -28,6 +26,8 @@ public class Food_Hamburger : MonoBehaviour
         isDragging = true;
         mouseZCoord = Camera.main.WorldToScreenPoint(transform.position).z;
         mouseOffset = transform.position - GetMouseWorldPos();
+
+        AudioManager.instance.PlayPickUp("bread");
     }
 
     private void OnMouseUp()
@@ -36,6 +36,8 @@ public class Food_Hamburger : MonoBehaviour
 
         if (isInCan)
         {
+            // 垃圾桶音效
+            AudioManager.instance.PlayThrowTrash();
             Destroy(gameObject);
         }
         else if (currentTask != null)
@@ -48,14 +50,14 @@ public class Food_Hamburger : MonoBehaviour
             else
             {
                 transform.position = originPos;
+                AudioManager.instance.PlayPutBack();
             }
         }
         else
         {
             transform.position = originPos;
+            AudioManager.instance.PlayPutBack();
         }
-
-        currentTask = null;
     }
 
     private void OnMouseEnter()
@@ -72,7 +74,6 @@ public class Food_Hamburger : MonoBehaviour
     {
         if (isDragging)
         {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             rb.MovePosition(GetMouseWorldPos() + mouseOffset);
         }
     }
@@ -104,7 +105,7 @@ public class Food_Hamburger : MonoBehaviour
             isInCan = false;
         }
 
-        if (other.CompareTag("TaskSlot") && currentTask == other.GetComponent<TaskIconRandom>())
+        if (other.CompareTag("TaskSlot"))
         {
             currentTask = null;
         }

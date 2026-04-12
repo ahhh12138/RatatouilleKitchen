@@ -43,26 +43,22 @@ public class Food_Drink : MonoBehaviour
         }
         else if (currentTask != null)
         {
-            Debug.Log("✅ 测试：juice 已经正确进入任务区域，可以提交！");
             bool success = currentTask.CheckAndSubmit("juice");
             if (success)
             {
-                Debug.Log("✅ 测试：juice 提交成功！");
                 Destroy(gameObject);
             }
             else
             {
-                Debug.Log("❌ 测试：juice 进入了任务区域，但提交失败（任务不匹配）");
                 transform.position = originPos;
-                // 放回原位音效
+                // 提交失败 → 放回音效
                 AudioManager.instance.PlayPutBack();
             }
         }
         else
         {
-            Debug.Log("❌ 测试：juice 没有进入任何任务区域 currentTask = null");
             transform.position = originPos;
-            // 放回原位音效
+            // 未投放 → 放回音效
             AudioManager.instance.PlayPutBack();
         }
     }
@@ -102,10 +98,6 @@ public class Food_Drink : MonoBehaviour
         if (other.CompareTag("TaskSlot"))
         {
             currentTask = other.GetComponent<TaskIconRandom>();
-            Debug.Log("=====================================");
-            Debug.Log("🟢 测试：JUICE 进入任务区域！！！");
-            Debug.Log("🟢 触发对象：" + other.name);
-            Debug.Log("=====================================");
         }
     }
 
@@ -119,9 +111,6 @@ public class Food_Drink : MonoBehaviour
         if (other.CompareTag("TaskSlot"))
         {
             currentTask = null;
-            Debug.Log("=====================================");
-            Debug.Log("🔴 测试：JUICE 离开任务区域");
-            Debug.Log("=====================================");
         }
     }
 }
