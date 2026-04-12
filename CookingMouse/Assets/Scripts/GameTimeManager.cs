@@ -36,7 +36,7 @@ public class GameTimeManager : MonoBehaviour
             Time.timeScale = 0f;
             Debug.Log("时间暂停");
         }
-        Debug.Log($"实例ID: {GetInstanceID()}, currentGlobalTime: {currentGlobalTime:F5}, 暂停状态: {currentGlobalTime <= 0}");
+        //Debug.Log($"实例ID: {GetInstanceID()}, currentGlobalTime: {currentGlobalTime:F5}, 暂停状态: {currentGlobalTime <= 0}");
     }
 
     public void SubstractGlobalTime()

@@ -55,7 +55,7 @@ public class TaskIconRandom : MonoBehaviour
                 break;
         }
 
-        Debug.Log("【当前任务" + gameObject.name + "需要】：" + currentTaskName);
+        //Debug.Log("【当前任务" + gameObject.name + "需要】：" + currentTaskName);
         RestartCountdown();
     }
 
@@ -65,6 +65,7 @@ public class TaskIconRandom : MonoBehaviour
         if (foodName == currentTaskName)
         {
             Debug.Log("✅ " + gameObject.name + " 提交成功！");
+            CoinManager.instance.AddCoins(GetCoinReward(currentTaskName));
             GameTimeManager.instance.AddGlobalTime();
             Debug.Log(GameTimeManager.instance.currentGlobalTime);
             RandomTask();
@@ -89,7 +90,7 @@ public class TaskIconRandom : MonoBehaviour
         if (currentTime <= 0)
         {
             Debug.Log("提交失败");
-            Debug.Log(GameTimeManager.instance.currentGlobalTime);
+            //Debug.Log(GameTimeManager.instance.currentGlobalTime);
             OnTimeOut();
         }
     }
@@ -107,5 +108,19 @@ public class TaskIconRandom : MonoBehaviour
         Debug.Log("任务超时：" + currentTaskName);
         GameTimeManager.instance.SubstractGlobalTime();
         RandomTask();
+    }
+
+    public int GetCoinReward(string taskName)
+    {
+        switch (taskName)
+        {
+            case "Burger":
+                return 5;
+            case "Fries":
+                return 2;
+            case "juice":
+                return 1;
+            default:return 0;
+        }
     }
 }
