@@ -11,8 +11,8 @@ public class TaskIconRandom : MonoBehaviour
     private string currentTaskName;
 
     //倒计时
-    public float taskTime=10f;
-    private float currentTime;
+    public float taskTime=20f;
+    public float currentTime;
     private bool isCounting=false;
     public Text TimeText;
 
@@ -25,6 +25,7 @@ public class TaskIconRandom : MonoBehaviour
 
         RectTransform rt = currentIcon.rectTransform;
         rt.sizeDelta = new Vector2(100, 100);
+        currentIcon.preserveAspect = true;
     }
 
     void Start()
@@ -64,6 +65,8 @@ public class TaskIconRandom : MonoBehaviour
         if (foodName == currentTaskName)
         {
             Debug.Log("✅ " + gameObject.name + " 提交成功！");
+            GameTimeManager.instance.AddGlobalTime();
+            Debug.Log(GameTimeManager.instance.currentGlobalTime);
             RandomTask();
             return true;
         }
@@ -77,13 +80,16 @@ public class TaskIconRandom : MonoBehaviour
     public void Update()
     {
         if (!isCounting) return;
-        currentTime-= Time.deltaTime;
+        //Debug.Log($"deltaTime: {Time.deltaTime}, currentTime: {currentTime}");
+        currentTime -= Time.deltaTime;
         if (TimeText != null)
         {
             TimeText.text = Mathf.Ceil(currentTime).ToString();
         }
         if (currentTime <= 0)
         {
+            Debug.Log("提交失败");
+            Debug.Log(GameTimeManager.instance.currentGlobalTime);
             OnTimeOut();
         }
     }

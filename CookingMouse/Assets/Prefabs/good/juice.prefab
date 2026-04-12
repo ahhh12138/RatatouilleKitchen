@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4303029271129489353}
   - component: {fileID: 5247821160896890606}
   - component: {fileID: 2407775924937501928}
-  - component: {fileID: -6415735598558656415}
-  m_Layer: 6
+  - component: {fileID: 5973404719126582226}
+  m_Layer: 5
   m_Name: juice
   m_TagString: juice
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.41, y: 2.86, z: 0.033096567}
-  m_LocalScale: {x: 1.2683085, y: 1.3240026, z: 1.3240026}
+  m_LocalScale: {x: 1.2328719, y: 1.28701, z: 1.28701}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -143,10 +143,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0140723735, y: 0.016851187}
+  m_Offset: {x: -0.014072388, y: 0.028963894}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -157,9 +157,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5215211, y: 1.5055342}
+  m_Size: {x: 0.56, y: 1.7658699}
   m_EdgeRadius: 0
---- !u!114 &-6415735598558656415
+--- !u!114 &5973404719126582226
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -20,6 +20,7 @@ public class BurgerMaker : MonoBehaviour
 
     void Awake()
     {
+        if(instance == null)
         instance = this;
     }
 
